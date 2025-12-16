@@ -1,9 +1,174 @@
+:root{
+  --pri:#F8F4E1;
+  --sec:#4E1F00;
+  --tri1:#FEBA17;
+  --tri2:#74512D;
+}
+
+
+
+@font-face {
+  font-family:aeonik;
+  font-weight: 600;
+  src: url(./public/font/fonts/fonnts.com-Aeonik-Bold.ttf);
+}
+
+
+@font-face {
+  font-family: aeonik;
+  font-weight: 200;
+  src: url(./public/font/fonts/fonnts.com-Aeonik-Regular.ttf);
+}
+
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: aeonik;
+    color: var(--pri);
 }
 html , body{
     height: 100%;
     width: 100%;
+}
+
+main{
+  overflow: hidden;
+}
+
+main{
+  height: 100%;
+  width: 100%;
+  background-color: var(--sec);
+}
+
+
+/* nav{
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  background-color: var(--tri2);
+} */
+
+
+section.allElems{
+   height: 100%;
+   width: 100%;
+   padding: 40px;
+   padding-top: 80px;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: flex-start;
+   gap: 40px;
+   position: absolute;
+
+}
+
+
+.elem{
+
+  border-radius: 10px;
+  height: 400px;
+  width: 300px;
+  font-size: .9rem;
+  overflow: hidden;
+  position: relative;
+  transition: all ease 0.3s;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgb(0, 255, 200);
+}
+
+.elem>img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.elem>h2{
+  position: absolute;
+bottom: 4%;
+right: 5%;
+color:var(--sec); 
+font-weight: 500;
+
+}
+
+
+.elem:active{
+  scale: 0.92;
+}
+
+
+.fullElem{
+  height: 100%;
+  width: 100%;
+  background-color: var(--sec);
+  padding: 40px;
+  display: none;
+  position: absolute;
+}
+
+.fullElem>nav{
+ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+ 
+}
+
+.fullElem .close-btn{
+
+  background-color: rgb(255, 62, 14);
+  color: white;
+  padding: 10px 15px 12px 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fullElem>.close-btn:active{
+  scale: 0.9;
+}
+
+
+
+
+
+/* todo page styling  */
+
+.todoFullPage{
+  display: block;
+}
+
+.todoFullPage>h2{
+  font-size: 30px;
+}
+
+.todo-container{
+   width: 100%;
+   height: 80%;
+   margin-top: 50px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.todoFullPage .todo-container .add-task{
+  width: 40%;
+  height: 100%;
+  background-color: var(--tri2);
+  border-radius: 10px;
+}
+
+
+.todoFullPage .todo-container .all-task{
+  width: 55%;
+  height: 100%;
+  background-color: var(--tri2);
+  border-radius: 10px;
 }
