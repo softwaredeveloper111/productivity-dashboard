@@ -20,15 +20,10 @@ const contextMenuCard = document.querySelector(".contextMenuCard")
 
 
 
-
-function todoFormValidation(data){
-  if(data.length>=5){
-    return true
-  }
-  else{
-    return false
-  }
+function generateId() {
+  return crypto.randomUUID();
 }
+
 
 function getCurrentDateTime(){
    const now = new Date();
@@ -40,6 +35,18 @@ function getCurrentDateTime(){
   const minutes = String(now.getMinutes()).padStart(2,'0')
   return `${day}-${month}-${year} : ${hours}-${minutes}`
 }
+
+
+
+function todoFormValidation(data){
+  if(data.length>=5){
+    return true
+  }
+  else{
+    return false
+  }
+}
+
 
 
 
@@ -70,13 +77,13 @@ function formSubmit(){
       
   let todos = localStorage.getItem("todos")
   if(!todos){
-     localStorage.setItem('todos',JSON.stringify([{title:taskTitle,content:textAreaData,isImportant:check.checked,isCompleted:false,createdAt:getCurrentDateTime()}]))
+     localStorage.setItem('todos',JSON.stringify([{id: generateId(),title:taskTitle,content:textAreaData,isImportant:check.checked,isCompleted:false,createdAt:getCurrentDateTime(),isModified:false}]))
 
      renderTodosFromLocalStorage();
   }
   else{
     let data = JSON.parse(localStorage.getItem("todos"));
-    data.push({title:taskTitle,content:textAreaData,isImportant:check.checked,isCompleted:false,createdAt:getCurrentDateTime()})
+    data.push({id: generateId(),title:taskTitle,content:textAreaData,isImportant:check.checked,isCompleted:false,createdAt:getCurrentDateTime(),isModified:false})
     localStorage.setItem("todos",JSON.stringify(data));
     renderTodosFromLocalStorage();
   }
@@ -90,6 +97,39 @@ function formSubmit(){
 
 
 
+function renderTodosFromLocalStorage(){
+  const todos = JSON.parse(localStorage.getItem("todos"));
+  if(todos){
+  allTaskContainer.innerHTML =  `<h3 class="task-title">All Task</h3>`
+  let clutter = ""
+  todos.forEach((item,index)=>{     
+
+       clutter+=`<div class="task" id=${item.id}  title="right click for edit">
+        <div class="task-data">
+           <span class="${item.isCompleted ? "completed" : ""}"> ${item.title}  ${item.isImportant?` <sup class="important">Imp</sup>`:""} <input type="checkbox" data-task-id="${item.id}" class="markAsCompleted" title="mark as completed" ${item.isCompleted?"checked":null}></span>
+            <span>${item.isModified?"Modified at":"Created at"} : ${item.createdAt}</span>
+        </div>
+       <span class="${item.isCompleted ? "completed" : ""}">${item.content}</span>
+      </div>`
+
+      
+  })
+
+  allTaskContainer.innerHTML+=clutter;
+
+  }
+ 
+}
+
+
+function hideContextMenu() {
+  contextMenuCard.style.display = "none";
+  CardNoClick = null;
+}
+
+
+
+
 function isCompleted(){
  
   let x;
@@ -97,11 +137,12 @@ function isCompleted(){
 
 
 allTaskContainer.addEventListener("click",(e)=>{
-   contextMenuCard.style.display = "none"
-  if(e.target.id==="markAsCompleted"){
+
+  if(e.target.classList.contains("markAsCompleted")){
      let data = JSON.parse(localStorage.getItem("todos"))
+     
      data = data.map((item,index)=>{
-        if(String(index) === e.target.dataset.taskId){
+        if(item.id === e.target.dataset.taskId){
      
            return {...item,isCompleted:e.target.checked}
         }
@@ -115,7 +156,7 @@ allTaskContainer.addEventListener("click",(e)=>{
   }
 })
 
-allTaskContainer.addEventListener("contextmenu",(e)=>{
+  allTaskContainer.addEventListener("contextmenu",(e)=>{
     e.preventDefault();
     let tastE1 = e.target.closest(".task");
     if(!tastE1) return;
@@ -130,38 +171,8 @@ allTaskContainer.addEventListener("contextmenu",(e)=>{
 
   })
 
-
 }
 
-
-
-
-
-function renderTodosFromLocalStorage(){
-  const todos = JSON.parse(localStorage.getItem("todos"));
-  allTaskContainer.innerHTML =  `<h3 class="task-title">All Task</h3>`
-  let clutter = ""
-  todos.forEach((item,index)=>{     
-
-       clutter+=`<div class="task" id=${index}  title="right click for edit">
-        <div class="task-data">
-           <span class="${item.isCompleted ? "completed" : ""}"> ${item.title}  ${item.isImportant?` <sup class="important">Imp</sup>`:""} <input type="checkbox" data-task-id="${index}" id="markAsCompleted" title="mark as completed" ${item.isCompleted?"checked":null}></span>
-            <span>Created At: ${item.createdAt}</span>
-        </div>
-       <span class="${item.isCompleted ? "completed" : ""}">${item.content}</span>
-      </div>`
-
-      
-      
-    
-  })
-
-  
-
-  allTaskContainer.innerHTML+=clutter;
-
-
-}
 
 
 
@@ -178,28 +189,40 @@ isCompleted()
 
 
 
-
-
-
-
-
-
-
-
 contextMenuCard.addEventListener('click',(e)=>{
  
+  e.stopPropagation();
   let re = e.target.closest(".delete")
   if(!re) return;
-  console.log("delete click");
+
   if(CardNoClick===null){
      contextMenuCard.style.display = "none"
   }
   else{
       contextMenuCard.style.display = "none";
-      console.log(CardNoClick);
+    
      let data =  JSON.parse(localStorage.getItem("todos"));
-     data.splice(CardNoClick,1);
+     data  = data.filter(item=>item.id!==CardNoClick)
      localStorage.setItem("todos",JSON.stringify(data));
      renderTodosFromLocalStorage();
   }
 })
+
+
+
+
+
+
+
+
+
+document.addEventListener("click", (e) => {
+  if (!contextMenuCard.contains(e.target)) {
+    hideContextMenu();
+  }
+});
+
+window.addEventListener("scroll", hideContextMenu, true);
+window.addEventListener("resize", hideContextMenu);
+
+

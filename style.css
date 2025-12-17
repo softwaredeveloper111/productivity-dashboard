@@ -317,8 +317,8 @@ font-weight: 500;
   color: var(--tri4);
 }
 
-#markAsCompleted{
-  margin-left: 20px;
+.markAsCompleted{
+  margin-left: 10px;
   cursor: pointer;
 }
 
