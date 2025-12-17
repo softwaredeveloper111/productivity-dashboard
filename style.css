@@ -3,6 +3,8 @@
   --sec:#4E1F00;
   --tri1:#FEBA17;
   --tri2:#74512D;
+  --tri3:rgb(255, 62, 14);
+  --tri4:red
 }
 
 
@@ -44,12 +46,12 @@ main{
 }
 
 
-/* nav{
+main > nav{
   position: fixed;
   width: 100%;
   height: 60px;
   background-color: var(--tri2);
-} */
+}
 
 
 section.allElems{
@@ -120,7 +122,7 @@ font-weight: 500;
 
 .fullElem .close-btn{
 
-  background-color: rgb(255, 62, 14);
+  background-color: var(--tri3);
   color: white;
   padding: 10px 15px 12px 15px;
   border-radius: 10px;
@@ -152,23 +154,204 @@ font-weight: 500;
 
 .todo-container{
    width: 100%;
-   height: 80%;
+   margin: auto;
+   height: 85%;
    margin-top: 50px;
    display: flex;
    justify-content: space-between;
 }
 
 .todoFullPage .todo-container .add-task{
-  width: 40%;
+  width: 30%;
   height: 100%;
   background-color: var(--tri2);
   border-radius: 10px;
+  padding: 40px;
+
+}
+
+.todoFullPage .todo-container .task-title{
+  font-size: 1.54rem;
+  font-weight: 400;
+  margin-bottom:40px ;
+  
+}
+
+.todoFullPage .todo-container .add-task form{
+  display: flex;
+  flex-direction: column;
+ 
+
+}
+
+.input-validation-error{
+  color: var(--tri1);
+  margin-bottom: 7px;
+  display: none;
+}
+
+.todoFullPage .todo-container .add-task form .input-task{
+
+  outline: none;
+  border: none;
+  background-color: var(--sec);
+  width: 100%;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 1rem;
+  
+}
+
+#task-title-heading{
+  padding: 20px 15px;
+  margin-bottom: 28px;
+
+}
+
+.checkbox{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+  
+}
+
+#custom-check{
+  cursor: pointer;
+  user-select: none;
+  color: var(--tri3);
+  font-size: 1.04rem;
+}
+
+#check{
+
+  height: 15px;
+  width: 15px;
+  cursor: pointer;
+
 }
 
 
+#taskContent{
+
+  height: 300px;
+  resize: none;
+
+
+}
+
+.todoFullPage .todo-container .add-task form #submit-btn{
+  width: fit-content;
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: var(--tri1);
+  border-radius: 5px;
+  border: none;
+  font-weight: 600;
+  font-size: .9rem;
+  transition: all 0.2s ease;
+  margin-top: 30px;
+}
+
+
+.todoFullPage .todo-container .add-task form #submit-btn:active{
+  scale: .92;
+}
+
 .todoFullPage .todo-container .all-task{
-  width: 55%;
+  width: 50%;
   height: 100%;
   background-color: var(--tri2);
   border-radius: 10px;
+  padding: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+
+.todoFullPage .todo-container .all-task::-webkit-scrollbar{
+  display: none;
+}
+
+.todoFullPage .todo-container .all-task .task{
+  width: 100%;
+  background-color: var(--sec);
+  padding: 14px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  cursor: default;
+  
+}
+
+.todoFullPage .todo-container .all-task .task .task-data{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
+.todoFullPage .todo-container .all-task .task .task-data span{
+
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--tri3);
+
+}
+
+.todoFullPage .todo-container .all-task .task .task-data span:nth-child(2){
+  opacity: .7;
+  font-size: .9rem;
+}
+
+
+.important{
+  padding: 3px 10px;
+  border-radius: 32px;
+  background-color: var(--tri1);
+  color: black;
+  font-size: 10px;
+  font-weight:bolder;
+  color: var(--tri4);
+}
+
+#markAsCompleted{
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.completed{
+  text-decoration: line-through;
+}
+
+
+
+.contextMenuCard{
+  height: 80px;
+  width: 150px;
+  display: none;
+  justify-content: center;
+  background-color: rgb(77, 73, 73);
+  border-radius: 3px;
+  position: absolute;
+  flex-direction: column;
+    z-index: 9999;
+ 
+}
+
+.contextMenuCard>span{
+  padding-left: 15px;
+  font-size: 1.1rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.contextMenuCard>span:hover{
+  background-color: rgba(0, 0, 0, 0.329);
+}
+
+.contextMenuCard>span:nth-child(1){
+  margin-bottom: 8px;
 }

@@ -48,27 +48,49 @@
 
 
 
-
-
-
-
 <section class="fullElem todoFullPage">
   <nav>
-    <h2>Your Personalized todo List</h2>
+    <h2>Your Personalized todo List.</h2>
     <button class="close-btn">close</button>
   </nav>
 
 
+  <div class="contextMenuCard">
+    <span class="edit">Edit</span>
+    <span class="delete">Delete</span>
+  </div>
+
+
   <div class="todo-container">
-    <div class="add-task"></div>
-    <div class="all-task"></div>
+
+
+    <div class="add-task">
+      <h3 class="task-title">Task Add</h3>
+      <form>
+        <span class="input-validation-error error-validation-one">Minimum required length 5.</span>
+        <input type="text" required  class="input-task" id="task-title-heading" placeholder="Enter task Title">
+        <span class="input-validation-error error-validation-two">Minimum required length 5.</span>
+        <textarea required placeholder="write your task..." class="input-task" id="taskContent" cols="30" rows="10"></textarea>
+        <div class="checkbox">
+          <input type="checkbox" id="check">
+          <label id="custom-check" for="check">Mars as important</label>
+        </div>
+        <button type="submit" id="submit-btn">Add Task</button>
+      </form>
+    </div>
+    <div class="all-task">
+      <h3 class="task-title">All Tasks</h3>
+             
+    </div>
+
+
   </div>
 </section>
 
 
 
 
-<section class="fullElem dailyPlannerFullPage">
+<!-- <section class="fullElem dailyPlannerFullPage">
   <nav>
   <h1>Daily planner</h1>
   <button class="close-btn">close</button>
@@ -100,11 +122,12 @@
      <h1>Daily goals</h1>
       <button class="close-btn">close</button>
   </nav>
-</section>
+</section> -->
 
              
 </main>
 
-  <script src="./script.js"></script>
+
+ <script type="module" src="./script.js"></script>
 </body>
 </html>
